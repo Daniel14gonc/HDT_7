@@ -38,8 +38,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
         if(rootValue.equals(value)) return root;
 
-        System.out.println(comparator.compare(rootValue, value) + " resultado");
-
         if(comparator.compare(rootValue, value) < 0){
             child = root.right();
         }
@@ -48,7 +46,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
 
         if(child.isEmpty()){
-            return  root;
+            return root;
         }
         else {
             return locate(child, value);
@@ -75,21 +73,22 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     public void add (E value){
         BinaryTree<E> newNode = new BinaryTree<E>(value, EMPTY, EMPTY);
-        E val = newNode.value();
 
         if(root.isEmpty())
             root = newNode;
         else{
-
             BinaryTree<E> insertLocation = locate(root, value);
             E nodeValue = insertLocation.value();
-            if(comparator.compare(val, value) < 0){
+            if(comparator.compare(nodeValue, value) < 0){
                 insertLocation.setRight(newNode);
-
-                predecessor(insertLocation).setRight(newNode);
             }
             else{
-                insertLocation.setLeft(newNode);
+                if(!insertLocation.left().isEmpty()){
+                    predecessor(insertLocation).setRight(newNode);
+                }
+                else{
+                    insertLocation.setLeft(newNode);
+                }
             }
         }
         count++;
@@ -109,6 +108,17 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     public E remove (E value){
         return null;
+    }
+
+    public String toString()
+    {
+        StringBuffer s = new StringBuffer();
+        s.append("<BinarySearchTree:");
+        if (!root.isEmpty()) {
+            s.append(root);
+        }
+        s.append(">");
+        return s.toString();
     }
 
 }

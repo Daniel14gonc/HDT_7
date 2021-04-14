@@ -76,4 +76,17 @@ public class BinaryTree<E> {
     public Iterator<E> iterator(){
         return new InOrderIterator<E>(this);
     }
+
+    public String toString()
+    {
+        if (isEmpty()) return "<BinaryTree: empty>";
+        StringBuffer s = new StringBuffer();
+        s.append("<BinaryTree "+value());
+        if (!left().isEmpty()) s.append(" "+left());
+        else s.append(" -");
+        if (!right().isEmpty()) s.append(" "+right());
+        else s.append(" -");
+        s.append('>');
+        return s.toString();
+    }
 }

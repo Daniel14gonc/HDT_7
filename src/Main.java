@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -40,6 +41,17 @@ public class Main {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
+        System.out.println(esBst.toString());
+
+        Iterator iterator = esBst.iterator();
+        String order = "";
+        while(iterator.hasNext()){
+            ComparableAssociation<String, String[]> temp = (ComparableAssociation<String, String[]>) iterator.next();
+            String[] tempWords = temp.getValue();
+            order += "("+ temp.getKey() + ", " + tempWords[0] + ", " + tempWords[1] + ")";
+        }
+        System.out.println("El diccionario en ingles in-order es: \n" + order);
 
     }
 }

@@ -7,7 +7,9 @@ public class InOrderIterator<E> implements Iterator<E> {
     protected Stack<BinaryTree<E>> todo;
 
     public InOrderIterator(BinaryTree<E> root){
+        todo = new Stack<BinaryTree<E>>();
         this.root = root;
+        reset();
     }
 
     public void reset(){
@@ -22,7 +24,11 @@ public class InOrderIterator<E> implements Iterator<E> {
 
     @Override
     public boolean hasNext() {
-        return false;
+        return !todo.isEmpty();
+    }
+
+    public E get(){
+        return todo.peek().value();
     }
 
     public E next(){
