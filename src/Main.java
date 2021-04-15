@@ -23,35 +23,76 @@ public class Main {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 String[] palabras = data.split(",");
-                ComparableAssociation<String, String[]> es = new ComparableAssociation<String, String[]>(palabras[0],
+                ComparableAssociation<String, String[]> ing = new ComparableAssociation<String, String[]>(palabras[0],
                         new String[] {palabras[1], palabras[2]});
 
-                ComparableAssociation<String, String[]> ing = new ComparableAssociation<String, String[]>(palabras[1],
+                ComparableAssociation<String, String[]> es = new ComparableAssociation<String, String[]>(palabras[1],
                         new String[] {palabras[0], palabras[2]});
 
                 ComparableAssociation<String, String[]> fr = new ComparableAssociation<String, String[]>(palabras[2],
                         new String[] {palabras[0], palabras[1]});
 
-                esBst.add(es);
                 ingBst.add(ing);
+                esBst.add(es);
                 frBst.add(fr);
             }
             myReader.close();
+
+
+            Iterator iterator = ingBst.iterator();
+            String order = "";
+            while(iterator.hasNext()){
+                ComparableAssociation<String, String[]> temp = (ComparableAssociation<String, String[]>) iterator.next();
+                String[] tempWords = temp.getValue();
+                order += "("+ temp.getKey() + ", " + tempWords[0] + ", " + tempWords[1] + ")";
+            }
+            System.out.println("El diccionario en ingles in-order es: \n" + order);
+
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Ingrese el nombre del archivo donde se encuentra la frase que desea traducir.");
+            String nombre = scan.nextLine();
+
+            myObj = new File(nombre + ".txt");
+            myReader = new Scanner(myObj);
+            String data = "";
+            while (myReader.hasNextLine()) {
+                data += myReader.nextLine() + "\n";
+            }
+            myReader.close();
+
+            String[] frase = data.split("\\s");
+
+            System.out.println("Ingrese en que idioma esta la frase que desea traducir");
+            String origen = scan.nextLine();
+
+            System.out.println("Ingrese en que idioma al que desea traducir la frase");
+            String destino = scan.nextLine();
+
+            BinarySearchTree<ComparableAssociation<String, String[]>> dic;
+
+            switch (origen){
+                case "español":
+                    dic = esBst;
+                    break;
+                case "ingles":
+                    dic = ingBst;
+                        break;
+                case "frances":
+                    dic = frBst;
+                    break;
+                default:
+                    System.out.println("El diccionario no soporta este lenguaje.");
+                    break;
+            }
+
+
+
+
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
 
-        System.out.println(esBst.toString());
-
-        Iterator iterator = esBst.iterator();
-        String order = "";
-        while(iterator.hasNext()){
-            ComparableAssociation<String, String[]> temp = (ComparableAssociation<String, String[]>) iterator.next();
-            String[] tempWords = temp.getValue();
-            order += "("+ temp.getKey() + ", " + tempWords[0] + ", " + tempWords[1] + ")";
-        }
-        System.out.println("El diccionario en ingles in-order es: \n" + order);
 
     }
 }

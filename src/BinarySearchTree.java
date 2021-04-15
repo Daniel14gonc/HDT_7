@@ -102,10 +102,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return false;
     }
 
-    public E get(E value){
-        return null;
-    }
-
     public E remove (E value){
         return null;
     }
@@ -119,6 +115,17 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
         s.append(">");
         return s.toString();
+    }
+
+    public E get(E value)
+    {
+        if (root.isEmpty()) return null;
+
+        BinaryTree<E> possibleLocation = locate(root,value);
+        if (value.equals(possibleLocation.value()))
+            return possibleLocation.value();
+        else
+            return null;
     }
 
 }
