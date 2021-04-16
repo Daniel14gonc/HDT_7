@@ -1,3 +1,14 @@
+/*
+ * Nombre: Jose Daniel Gonzalez
+ * Carne: 20293
+ * BinaryTree
+ *
+ * Descripcion:
+ *   Clase que permite implementar un el ADT de un arbol binario.
+ */
+
+
+
 import java.util.Iterator;
 
 public class BinaryTree<E> {
@@ -29,6 +40,8 @@ public class BinaryTree<E> {
     }
 
     public void setLeft(BinaryTree<E> newLeft){
+        //Pre: Se valida que el árbol no esté vacío.
+        //Post: Se asigna la nueva instancia de hijo izquierdo al hijo actual.
         if(isEmpty()) return;
         if(left != null && left.parent() == this)
             left.setParent(null);
@@ -37,6 +50,8 @@ public class BinaryTree<E> {
     }
 
     public void setRight(BinaryTree<E> newRight){
+        //Pre: Se valida que el árbol no esté vacío.
+        //Post: Se asigna la nueva instancia de hijo derecho al hijo actual.
         if(isEmpty()) return;
         if(right != null && right.parent() == this)
             right.setParent(null);
@@ -45,6 +60,8 @@ public class BinaryTree<E> {
     }
 
     protected void setParent(BinaryTree<E> parent){
+        //Pre: Se valida que el árbol no esté vacío.
+        //Post: Se asigna la nueva instancia de al predecesor del árbol actual.
         if(!isEmpty())
             this.parent = parent;
     }
